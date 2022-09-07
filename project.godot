@@ -11,6 +11,12 @@ config_version=4
 [application]
 
 config/name="Pokemon Hungry"
+config/icon="res://IMGs/logo.png"
+
+[autoload]
+
+DB="*res://Global/db.gd"
+PokemonSheet="*res://Global/pokemon_sheet.gd"
 
 [gui]
 
