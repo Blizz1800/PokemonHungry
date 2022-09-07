@@ -17,6 +17,7 @@ config/icon="res://IMGs/logo.png"
 
 DB="*res://Global/db.gd"
 PokemonSheet="*res://Global/pokemon_sheet.gd"
+GlobalVars="*res://GLOBAL_VARS.gd"
 
 [gui]
 
