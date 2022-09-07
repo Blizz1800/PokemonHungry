@@ -28,6 +28,8 @@ enum foodType{
 	frutas
 }
 
+#	Need Bucle that find pokes by id or name
+
 var pokemons = {
 	"pokemons": 
 	[
@@ -75,11 +77,22 @@ enum eggs {
 	ditto
 }
 
-var sprites = [
-	
-]
+func getItem(db, table, key, value):
+	var list = db.get(table)
+	var item = null
+	for i in list:
+		if i.get(key) == value:
+			item = i
+			break
+	return item
 
-func addPkm(SpriteID:int, name:String, desc:String, sound:int, PokmType:String, altura:float, peso:float, 
+func getPokeByName(name:String):
+	return getItem(pokemons, "pokemons", "name", name)
+
+func getPokeByID(id:int):
+	return getItem(pokemons, "pokemons", "id", id)
+
+func addPkm(name:String, desc:String, sound:int, PokmType:String, altura:float, peso:float, 
 skills:Array, mt:Array, mo:Array, hideSkill:int, types:Array, status:Array, egg:int, eggCycle:int,
 sex:float, evo:Array, areas:Array) -> int:
 	var id = (pokemons.get("pokemons")[pokemons.size()-1].get("id"))+1
@@ -121,7 +134,7 @@ sex:float, evo:Array, areas:Array) -> int:
 		status[6] = total
 	var pkm = {
 			"id": id, #Pkm ID
-			"sprite": SpriteID, #Sprite ID
+			"sprite": id, #Sprite ID
 			"name": name, #Pkm Name
 			"desc": desc, # Pokemon Desc
 			"sound": sound,
@@ -150,29 +163,32 @@ func addPkmWArr(array):
 		printerr("El array debe contener 18 elementos!!\nTiene: {e}".format({"e":len(array)}))
 		return 1
 	else:
-		var v1 = array[0]
-		var v2 = array[1]
-		var v3 = array[2]
-		var v4 = array[3]
-		var v5 = array[4]
-		var v6 = array[5]
-		var v7 = array[6]
-		var v8 = array[7]
-		var v9 = array[8]
-		var v10 = array[9]
-		var v11 = array[10]
-		var v12 = array[11]
-		var v13 = array[12]
-		var v14 = array[13]
-		var v15 = array[14]
-		var v16 = array[15]
-		var v17 = array[16]
-		var v18 = array[17]
-		addPkm(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18)
+		var v2 = array[0]
+		var v3 = array[1]
+		var v4 = array[2]
+		var v5 = array[3]
+		var v6 = array[4]
+		var v7 = array[5]
+		var v8 = array[6]
+		var v9 = array[7]
+		var v10 = array[8]
+		var v11 = array[9]
+		var v12 = array[10]
+		var v13 = array[11]
+		var v14 = array[12]
+		var v15 = array[13]
+		var v16 = array[14]
+		var v17 = array[15]
+		var v18 = array[16]
+		addPkm(v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18)
+
+var sprites = []
 
 func updateSpriteDB():
+	if [] == sprites:
+		sprites.append(null)
 	for i in range(1, 621):
-		sprites.append({"id": i, "path": "res://IMGs/Sprites/Pkm/{i}.png".format({"i":i})})
+		sprites.append("res://IMGs/Sprites/Pkm/{i}.png".format({"i":i}))
 	return 0
 
 func loadPokesFromFile(path:String):
@@ -243,9 +259,10 @@ func loadPokesFromFile(path:String):
 			obj.append(txt)
 		contents.append(obj)
 		#print("\nCreating new Array...\n")
+	addPkmWArr(contents)
 	return 0
 
 func _ready():
 	updateSpriteDB()
-	addPkm(1, "Bulbasaur", "Bulbasaur Desc", 8, "plant Pokemon", 7.6, 8.6, [[1, 38], [15, 36]], [], [], 38, [types.planta, types.veneno], [15,16,8,48,6,9], eggs.planta, 80, 16/100, [], [37])
+	addPkm("Bulbasaur", "Bulbasaur Desc", 8, "plant Pokemon", 7.6, 8.6, [[1, 38], [15, 36]], [], [], 38, [types.planta, types.veneno], [15,16,8,48,6,9], eggs.planta, 80, 16/100, [], [37])
 	
