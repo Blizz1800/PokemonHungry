@@ -132,6 +132,9 @@ sex:float, evo:Array, areas:Array) -> int:
 			total += i
 			count += 1
 		status[6] = total
+	var fSkills = []
+	for s in skills:
+		fSkills.append({"lvl":s[0], "skill":[1]})
 	var pkm = {
 			"id": id, #Pkm ID
 			"sprite": id, #Sprite ID
@@ -141,7 +144,7 @@ sex:float, evo:Array, areas:Array) -> int:
 			"pkmType": PokmType, # Tipo pokemon o Identificador ej: Pikachu -> "raton electrico"
 			"altura": altura,
 			"peso": peso, 
-			"skills": skills, #level, skill que aprende
+			"skills": fSkills, #level, skill que aprende
 			"mt": mt, #MTs que aprende
 			"mo": mo, #MOs que aprende
 			"hideSkill": hideSkill, # Hide Skill ID
@@ -159,8 +162,8 @@ sex:float, evo:Array, areas:Array) -> int:
 	return 0
 
 func addPkmWArr(array):
-	if len(array) != 18:
-		printerr("El array debe contener 18 elementos!!\nTiene: {e}".format({"e":len(array)}))
+	if len(array) != 17:
+		printerr("El array debe contener 17 elementos!!\nTiene: {e}".format({"e":len(array)}))
 		return 1
 	else:
 		var v2 = array[0]
@@ -180,7 +183,8 @@ func addPkmWArr(array):
 		var v16 = array[14]
 		var v17 = array[15]
 		var v18 = array[16]
-		addPkm(v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18)
+		print(array)
+		addPkm(v2, v3, int(v4), v5, float(v6), float(v7), v8, v9, v10, int(v11), v12, v13, v14, v15, float(v16), v17, v18)
 
 var sprites = []
 
@@ -239,13 +243,13 @@ func loadFromFile(path:String):
 										#print("SA[{i}] is {s}".format({"i": i, "s": subArray[i]}))
 										#print("{txt} -> subArray".format({"txt":txt}))
 										if not txt in GlobalVars.SPACE_CHARS and txt != "":
-											subArray[i].append(txt)
+											subArray[i].append(GlobalVars.returnNum(txt))
 										txt = ""
 										break
 				else:
 					arr == false
 					if not txt in GlobalVars.SPACE_CHARS and txt != "":
-						subArray.append(txt)
+						subArray.append(GlobalVars.returnNum(txt))
 					obj.append(subArray)
 					arr = false
 					string = false
@@ -259,7 +263,7 @@ func loadFromFile(path:String):
 			if c == '"':
 				string = !string
 				if !string:
-					obj.append(txt)
+					obj.append(GlobalVars.returnNum(txt))
 					arr = false
 					string = false
 					#obj = []
@@ -274,7 +278,7 @@ func loadFromFile(path:String):
 					if !(string or arr):
 						#print("Adding [{txt}] to array".format({"txt": txt}))
 						if txt in GlobalVars.SPACE_CHARS:
-							obj.append(txt)
+							obj.append(GlobalVars.returnNum(txt))
 							arr = false
 							string = false
 							#obj = []
@@ -283,7 +287,7 @@ func loadFromFile(path:String):
 							subs = 0
 							txt = ""
 						elif txt != "":
-							obj.append(txt)
+							obj.append(GlobalVars.returnNum(txt))
 							arr = false
 							string = false
 							#obj = []
@@ -296,7 +300,7 @@ func loadFromFile(path:String):
 						if arr:
 							#print("3. Adding {txt} to subArr".format({"txt": txt}))
 							if not txt in GlobalVars.SPACE_CHARS:
-								subArray.append(txt)
+								subArray.append(GlobalVars.returnNum(txt))
 						else:
 							txt += c
 				else:
@@ -321,19 +325,19 @@ func loadFromFile(path:String):
 												#print("SA[{i}] is {s}".format({"i": i, "s": subArray[i]}))
 												#print("2. {txt} -> subArray".format({"txt":txt}))
 												if not txt in GlobalVars.SPACE_CHARS and txt != "":
-													subArray[i].append(txt)
+													subArray[i].append(GlobalVars.returnNum(txt))
 												txt = ""
 												break
 						else:
 							if not txt in GlobalVars.SPACE_CHARS and txt != "":
-								subArray.append(txt)
+								subArray.append(GlobalVars.returnNum(txt))
 						txt = ""
 					else:
 						txt += c
 				else:
 					txt += c
 		if txt != "":
-			obj.append(txt)
+			obj.append(GlobalVars.returnNum(txt))
 			arr = false
 			string = false
 			#obj = []
@@ -341,6 +345,8 @@ func loadFromFile(path:String):
 			lenSub = -1
 			subs = 0
 			txt = ""
+		if obj == []:
+			continue
 		contents.append(obj)
 		#print("\nCreating new Array...\n")
 	return contents
