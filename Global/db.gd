@@ -222,7 +222,7 @@ func loadFromFile(path:String):
 					subArray.append([])
 				continue
 			elif c == '%':
-				print("1. "+str(subArray))
+				#print("1. "+str(subArray))
 				#print("1. LenSub +1 ({l})".format({"l":lenSub}))
 				if lenSub > 0:
 					if txt != "": 
@@ -238,23 +238,34 @@ func loadFromFile(path:String):
 									if tmp == 0:
 										#print("SA[{i}] is {s}".format({"i": i, "s": subArray[i]}))
 										#print("{txt} -> subArray".format({"txt":txt}))
-										#if txt != " " and txt != "":
-										subArray[i].append(txt)
+										if not txt in GlobalVars.SPACE_CHARS and txt != "":
+											subArray[i].append(txt)
 										txt = ""
 										break
 				else:
 					arr == false
+					if not txt in GlobalVars.SPACE_CHARS and txt != "":
+						subArray.append(txt)
 					obj.append(subArray)
-					txt = ""
-					subs = 0
-					lenSub = -1
+					arr = false
+					string = false
+					#obj = []
 					subArray = []
+					lenSub = -1
+					subs = 0
+					txt = ""
 				lenSub-=1
 				continue
 			if c == '"':
 				string = !string
 				if !string:
 					obj.append(txt)
+					arr = false
+					string = false
+					#obj = []
+					subArray = []
+					lenSub = -1
+					subs = 0
 					txt = ""
 				continue
 			#print("for char '{c}' (HEX: {hex}):\n\t[arr] is {arr}\n\t[str] is {str}\n\t[arr | str] = {is}".format({"c":c, "hex": c.to_ascii().hex_encode(),"arr":arr,"str":string, "is":string or arr}))
@@ -262,14 +273,29 @@ func loadFromFile(path:String):
 				if c in GlobalVars.SPACE_CHARS:
 					if !(string or arr):
 						#print("Adding [{txt}] to array".format({"txt": txt}))
-						if txt != " ":
+						if txt in GlobalVars.SPACE_CHARS:
 							obj.append(txt)
-						txt = ""
+							arr = false
+							string = false
+							#obj = []
+							subArray = []
+							lenSub = -1
+							subs = 0
+							txt = ""
+						elif txt != "":
+							obj.append(txt)
+							arr = false
+							string = false
+							#obj = []
+							subArray = []
+							lenSub = -1
+							subs = 0
+							txt = ""
 					else:
 						#print("1. adding {c} to txt".format({"c":c}))
 						if arr:
 							#print("3. Adding {txt} to subArr".format({"txt": txt}))
-							if txt != " ":
+							if not txt in GlobalVars.SPACE_CHARS:
 								subArray.append(txt)
 						else:
 							txt += c
@@ -294,11 +320,12 @@ func loadFromFile(path:String):
 											if tmp == 0:
 												#print("SA[{i}] is {s}".format({"i": i, "s": subArray[i]}))
 												#print("2. {txt} -> subArray".format({"txt":txt}))
-												subArray[i].append(txt)
+												if not txt in GlobalVars.SPACE_CHARS and txt != "":
+													subArray[i].append(txt)
 												txt = ""
 												break
 						else:
-							if txt != " " and txt != "":
+							if not txt in GlobalVars.SPACE_CHARS and txt != "":
 								subArray.append(txt)
 						txt = ""
 					else:
@@ -307,6 +334,13 @@ func loadFromFile(path:String):
 					txt += c
 		if txt != "":
 			obj.append(txt)
+			arr = false
+			string = false
+			#obj = []
+			subArray = []
+			lenSub = -1
+			subs = 0
+			txt = ""
 		contents.append(obj)
 		#print("\nCreating new Array...\n")
 	return contents
