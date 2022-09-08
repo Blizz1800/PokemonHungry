@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Pokemon Hungry"
-config/icon="res://IMGs/logo.png"
+config/icon="res://IMGs/logoV2.png"
 
 [autoload]
 
@@ -26,3 +26,7 @@ common/drop_mouse_on_gui_input_disabled=true
 [physics]
 
 common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"

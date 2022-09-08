@@ -191,7 +191,7 @@ func updateSpriteDB():
 		sprites.append("res://IMGs/Sprites/Pkm/{i}.png".format({"i":i}))
 	return 0
 
-func loadPokesFromFile(path:String):
+func loadFromFile(path:String):
 	var file = File.new()
 	if not file.file_exists(path):
 		printerr("File located in {{path}} NOT EXISTS".format({"path":path}))
@@ -259,10 +259,17 @@ func loadPokesFromFile(path:String):
 			obj.append(txt)
 		contents.append(obj)
 		#print("\nCreating new Array...\n")
-	addPkmWArr(contents)
+	return contents
+
+func loadPokesFromFile(path:String):
+	var pokesList = loadFromFile(path)
+	if pokesList is int:
+		return pokesList
+	for p in pokesList:
+		addPkmWArr(p)
 	return 0
 
 func _ready():
 	updateSpriteDB()
 	addPkm("Bulbasaur", "Bulbasaur Desc", 8, "plant Pokemon", 7.6, 8.6, [[1, 38], [15, 36]], [], [], 38, [types.planta, types.veneno], [15,16,8,48,6,9], eggs.planta, 80, 16/100, [], [37])
-	
+	#print(["Bulbasaur", "Bulbasaur Desc", 8, "plant Pokemon", 7.6, 8.6, [[1, 38], [15, 36]], [], [], 38, [types.planta, types.veneno], [15,16,8,48,6,9], eggs.planta, 80, 16/100, [], [37]])

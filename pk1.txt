@@ -1,0 +1,1 @@
+Bulbasaur "Bulbasaur Desc" 8 "plant Pokemon" 7.6 8.6 $$1 38$ $15 36$$ $$ $$ 38 $types.planta types.veneno$ $15 16 8 48 6 9$ eggs.planta 80 0.16 $$ $37$
