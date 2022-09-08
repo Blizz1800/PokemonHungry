@@ -1,0 +1,5 @@
+Types: {acero:16, agua:3, bicho:12, dragon:13, electrico:7, fantasma:14, fuego:1, hada:17, hielo:11, lucha:2, normal:0, planta:5, psiquico:9, roca:10, siniestro:15, tierra:8, veneno:6, volador:4}
+Eggs: {agua1:3, agua2:4, agua3:5, amorfo:0, bicho:6, campo:7, desconocido:2, ditto:14, dragon:11, hada:12, humano:1, mineral:8, monstruo:10, planta:9, vuelo:13}
+Food: {ballas:3, carne:0, frutas:4, hongo:1, pescado:2}
+
+name:Texto desc:Texto sound:Entero PokmType:Texto altura:Real peso:Real skills:Lista[Lista[Entero]2]& mt:Lista[Entero]& mo:Lista[Entero]& pasiveSkill:Entero hideSkill:Entero types:Lista[Entero]1|2 status:Lista7 egg:Entero eggCycle:Entero sex:Real evo:Lista[Entero]2 areas:Lista&

@@ -47,6 +47,7 @@ var pokemons = {
 			], #level, skill que aprende
 			"mt":[], #MTs que aprende
 			"mo":[], #MOs que aprende
+			"pasiveSkill": 0,
 			"hideSkill": 0, # Hide Skill ID
 			"types": [], # pkm types MAX: 2
 			"status": [0,0,0,0,0,0,0],  # [PS, ATQ, DEF, A. Esp, D. Esp, Vel, Total]
@@ -93,7 +94,7 @@ func getPokeByID(id:int):
 	return getItem(pokemons, "pokemons", "id", id)
 
 func addPkm(name:String, desc:String, sound:int, PokmType:String, altura:float, peso:float, 
-skills:Array, mt:Array, mo:Array, hideSkill:int, types:Array, status:Array, egg:int, eggCycle:int,
+skills:Array, mt:Array, mo:Array, pasiveSkill:int, hideSkill:int, types:Array, status:Array, egg:int, eggCycle:int,
 sex:float, evo:Array, areas:Array) -> int:
 	var id = (pokemons.get("pokemons")[pokemons.size()-1].get("id"))+1
 	if len(types) == 0 or len(types) >= 3:
@@ -147,6 +148,7 @@ sex:float, evo:Array, areas:Array) -> int:
 			"skills": fSkills, #level, skill que aprende
 			"mt": mt, #MTs que aprende
 			"mo": mo, #MOs que aprende
+			"pasiveSkill": pasiveSkill,
 			"hideSkill": hideSkill, # Hide Skill ID
 			"types": types, # pkm types MAX: 2
 			"status": status,  # [PS, ATQ, DEF, A. Esp, D. Esp, Vel, Total]
@@ -162,29 +164,30 @@ sex:float, evo:Array, areas:Array) -> int:
 	return 0
 
 func addPkmWArr(array):
-	if len(array) != 17:
-		printerr("El array debe contener 17 elementos!!\nTiene: {e}".format({"e":len(array)}))
+	if len(array) != 18:
+		printerr("El array debe contener 18 elementos!!\nTiene: {e}".format({"e":len(array)}))
 		return 1
 	else:
-		var v2 = array[0]
-		var v3 = array[1]
-		var v4 = array[2]
-		var v5 = array[3]
-		var v6 = array[4]
-		var v7 = array[5]
-		var v8 = array[6]
-		var v9 = array[7]
-		var v10 = array[8]
-		var v11 = array[9]
-		var v12 = array[10]
-		var v13 = array[11]
-		var v14 = array[12]
-		var v15 = array[13]
-		var v16 = array[14]
-		var v17 = array[15]
-		var v18 = array[16]
+		var v1 = array[0]
+		var v2 = array[1]
+		var v3 = array[2]
+		var v4 = array[3]
+		var v5 = array[4]
+		var v6 = array[5]
+		var v7 = array[6]
+		var v8 = array[7]
+		var v9 = array[8]
+		var v10 = array[9]
+		var v11 = array[10]
+		var v12 = array[11]
+		var v13 = array[12]
+		var v14 = array[13]
+		var v15 = array[14]
+		var v16 = array[15]
+		var v17 = array[16]
+		var v18 = array[17]
 		print(array)
-		addPkm(v2, v3, int(v4), v5, float(v6), float(v7), v8, v9, v10, int(v11), v12, v13, v14, v15, float(v16), v17, v18)
+		addPkm(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18)
 
 var sprites = []
 
@@ -361,5 +364,5 @@ func loadPokesFromFile(path:String):
 
 func _ready():
 	updateSpriteDB()
-	addPkm("Bulbasaur", "Bulbasaur Desc", 8, "plant Pokemon", 7.6, 8.6, [[1, 38], [15, 36]], [], [], 38, [types.planta, types.veneno], [15,16,8,48,6,9], eggs.planta, 80, 16/100, [], [37])
+	addPkm("Bulbasaur", "Bulbasaur Desc", 8, "plant Pokemon", 7.6, 8.6, [[1, 38], [15, 36]], [], [], 5, 38, [types.planta, types.veneno], [15,16,8,48,6,9], eggs.planta, 80, 16/100, [], [37])
 	#print(["Bulbasaur", "Bulbasaur Desc", 8, "plant Pokemon", 7.6, 8.6, [[1, 38], [15, 36]], [], [], 38, [types.planta, types.veneno], [15,16,8,48,6,9], eggs.planta, 80, 16/100, [], [37]])
