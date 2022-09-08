@@ -200,7 +200,7 @@ func loadFromFile(path:String):
 		file.open(path, File.READ)
 	var text:String = file.get_as_text()
 	var lines = text.rsplit("\n")
-	#	$Content Content2$ -> Arrays
+	#	$Content Content2% -> Arrays
 	#	"Content Content" -> Strings
 	var contents = []
 	for line in lines:
@@ -208,18 +208,42 @@ func loadFromFile(path:String):
 		var string:bool = false
 		var obj = []
 		var subArray = []
+		var lenSub = -1
 		var txt = ""
 		for c in line:
 			#print("Using char: '{c}' (HEX: {hex})".format({"c": c, "hex":c.to_ascii().hex_encode()}))
 			if c == '$':
-				arr = !arr
-				if !arr:
-					if txt != "":
+				arr = true
+				lenSub +=1
+				#print("2. LenSub +1 ({l})".format({"l":lenSub}))
+				if lenSub > 0:
+					subArray.append([])
+				continue
+			elif c == '%':
+				print(subArray)
+				#print("1. LenSub +1 ({l})".format({"l":lenSub}))
+				if lenSub > 0:
+					if txt != "": 
 						#print("1. Adding {txt} to subArr".format({"txt": txt}))
-						subArray.append(txt)
+						var tmp = lenSub
+						for i in range(0, len(subArray)):
+							#print("subArr[{i}]: \t".format({"i":i})+str(subArray[i] is Array))
+							#print(str(subArray[i])+"\t"+str(i))
+							if subArray[i] is Array:
+								if tmp > 0:
+									tmp -= 1
+								if tmp == 0:
+									#print("SA[{i}] is {s}".format({"i": i, "s": subArray[i]}))
+									#print("{txt} -> subArray".format({"txt":txt}))
+									subArray[i].append(txt)
+									txt = ""
+									break
+				else:
+					arr == false
 					obj.append(subArray)
 					txt = ""
 					subArray = []
+				lenSub-=1
 				continue
 			if c == '"':
 				string = !string
@@ -249,7 +273,23 @@ func loadFromFile(path:String):
 				if arr:
 					if c in GlobalVars.SPACE_CHARS:
 						#print("4. Adding {txt} to subArr".format({"txt": txt}))
-						subArray.append(txt)
+						if lenSub > 0:
+							var tmp = lenSub
+							for i in range(0, len(subArray)):
+							#print("subArr[{i}]: \t".format({"i":i})+str(subArray[i] is Array))
+							#print(str(subArray[i])+"\t"+str(i))
+								if subArray[i] is Array:
+									if tmp > 0:
+										tmp -= 1
+									if tmp == 0:
+										#print("SA[{i}] is {s}".format({"i": i, "s": subArray[i]}))
+										#print("2. {txt} -> subArray".format({"txt":txt}))
+										subArray[i].append(txt)
+										txt = ""
+										break
+						else:
+							if txt != " ":
+								subArray.append(txt)
 						txt = ""
 					else:
 						txt += c
