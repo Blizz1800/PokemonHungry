@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Pokemon",
+"language": "GDScript",
+"path": "res://Global/pokemon_sheet.gd"
+} ]
+_global_script_class_icons={
+"Pokemon": ""
+}
+
 [application]
 
 config/name="Pokemon Hungry"

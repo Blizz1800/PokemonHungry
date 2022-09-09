@@ -1,4 +1,5 @@
 extends Node
+class_name Pokemon
 
 var skin:Texture
 var PkmName:String

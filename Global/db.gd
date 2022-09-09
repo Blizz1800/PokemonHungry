@@ -30,7 +30,7 @@ enum foodType{
 
 #	Need Bucle that find pokes by id or name
 
-var pokemons = {
+var db = {
 	"pokemons": 
 	[
 		{
@@ -47,7 +47,7 @@ var pokemons = {
 			], #level, skill que aprende
 			"mt":[], #MTs que aprende
 			"mo":[], #MOs que aprende
-			"pasiveSkill": 0,
+			"pasiveSkill": [0,0,0,0],
 			"hideSkill": 0, # Hide Skill ID
 			"types": [], # pkm types MAX: 2
 			"status": [0,0,0,0,0,0,0],  # [PS, ATQ, DEF, A. Esp, D. Esp, Vel, Total]
@@ -56,6 +56,19 @@ var pokemons = {
 			"sex": 0,  #Porcentaje para posibilidad de sexo masculino
 			"evolution": [null, null],  #[INT, INT] -> [Level, Evolution]
 			"area": []  #INTs Values refering to the zones
+		}
+	],
+	"skills":
+	[
+		{
+			"id":0,
+			"name": "",  #Nombre de la habilidad
+			"desc": "",  #Descripcion de la habilidad
+			"type": 0,  #Tipo de ataque (Igual que el tipo de pokemon)
+			"dps": 0,  #Daño que inflije (si cura es el cuanto cura)
+			"precision": 0.0,  #Probabilidad de acierto
+			"pp": 0.0,  #PP que consume
+			"afecta":0,  #0 Para el usuario, -1 aliado (Usuario tambien), -2 (solo aliado), 0< Enemigos (1 o +)
 		}
 	]
 }
@@ -78,7 +91,7 @@ enum eggs {
 	ditto
 }
 
-func getItem(db, table, key, value):
+func getItem(table, key, value):
 	var list = db.get(table)
 	var item = null
 	for i in list:
@@ -87,16 +100,31 @@ func getItem(db, table, key, value):
 			break
 	return item
 
+
 func getPokeByName(name:String):
-	return getItem(pokemons, "pokemons", "name", name)
+	return getItem("pokemons", "name", name)
 
 func getPokeByID(id:int):
-	return getItem(pokemons, "pokemons", "id", id)
+	return getItem("pokemons", "id", id)
 
-func addPkm(name:String, desc:String, sound:int, PokmType:String, altura:float, peso:float, 
-skills:Array, mt:Array, mo:Array, pasiveSkill:int, hideSkill:int, types:Array, status:Array, egg:int, eggCycle:int,
+func addSkill(name:String, desc:String, type:int, dps:int, precision:float, pp:float, afecta:int):
+	var id = (db.get("skills")[db.get("skills").size()-1].get("id"))+1
+	var obj = {
+			"id":id,
+			"name": name,  #Nombre de la habilidad
+			"desc": desc,  #Descripcion de la habilidad
+			"type": type,  #Tipo de ataque (Igual que el tipo de pokemon)
+			"dps": dps,  #Daño que inflije (si cura es el cuanto cura)
+			"precision": precision,  #Probabilidad de acierto
+			"pp": pp,  #PP que consume
+			"afecta": afecta,  #0 Para el usuario, -1 aliado (Usuario tambien), -2 (solo aliado), 0< Enemigos (1 o +)
+		}
+	db.get("skills").append(obj)
+
+func addPkm(name:String, desc:String, PokmType:String, altura:float, peso:float, 
+skills:Array, mt:Array, mo:Array, pasiveSkill:Array, hideSkill:int, types:Array, status:Array, egg:int, eggCycle:int,
 sex:float, evo:Array, areas:Array) -> int:
-	var id = (pokemons.get("pokemons")[pokemons.size()-1].get("id"))+1
+	var id = (db.get("pokemons")[db.get("pokemons").size()-1].get("id"))+1
 	if len(types) == 0 or len(types) >= 3:
 		printerr("Los tipo de pokemon estan mal definidos\nMinimo: 1\nMaximo: 2\nCantidad Puesta: "+ str(len(types)))
 		return 1
@@ -141,7 +169,7 @@ sex:float, evo:Array, areas:Array) -> int:
 			"sprite": id, #Sprite ID
 			"name": name, #Pkm Name
 			"desc": desc, # Pokemon Desc
-			"sound": sound,
+			"sound": id,
 			"pkmType": PokmType, # Tipo pokemon o Identificador ej: Pikachu -> "raton electrico"
 			"altura": altura,
 			"peso": peso, 
@@ -158,14 +186,14 @@ sex:float, evo:Array, areas:Array) -> int:
 			"evolution": evo,  #[INT, INT] -> [Level, Evolution]
 			"area": areas  #INTs Values refering to the zones
 		}
-	pokemons.get("pokemons").append(pkm)
+	db.get("pokemons").append(pkm)
 	if GlobalVars.DEBUG:
 		print("Added {pkm} to DB".format({"pkm":pkm}))
 	return 0
 
 func addPkmWArr(array):
-	if len(array) != 18:
-		printerr("El array debe contener 18 elementos!!\nTiene: {e}".format({"e":len(array)}))
+	if len(array) != 17:
+		printerr("El array debe contener 17 elementos!!\nTiene: {e}".format({"e":len(array)}))
 		return 1
 	else:
 		var v1 = array[0]
@@ -185,9 +213,9 @@ func addPkmWArr(array):
 		var v15 = array[14]
 		var v16 = array[15]
 		var v17 = array[16]
-		var v18 = array[17]
+		#var v18 = array[17]
 		print(array)
-		addPkm(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18)
+		addPkm(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17)
 
 var sprites = []
 
@@ -364,5 +392,5 @@ func loadPokesFromFile(path:String):
 
 func _ready():
 	updateSpriteDB()
-	addPkm("Bulbasaur", "Bulbasaur Desc", 8, "plant Pokemon", 7.6, 8.6, [[1, 38], [15, 36]], [], [], 5, 38, [types.planta, types.veneno], [15,16,8,48,6,9], eggs.planta, 80, 16/100, [], [37])
+	#addPkm("Bulbasaur", "Bulbasaur Desc", 8, "plant Pokemon", 7.6, 8.6, [[1, 38], [15, 36]], [], [], [5], 38, [types.planta, types.veneno], [15,16,8,48,6,9], eggs.planta, 80, 16/100, [], [37])
 	#print(["Bulbasaur", "Bulbasaur Desc", 8, "plant Pokemon", 7.6, 8.6, [[1, 38], [15, 36]], [], [], 38, [types.planta, types.veneno], [15,16,8,48,6,9], eggs.planta, 80, 16/100, [], [37]])

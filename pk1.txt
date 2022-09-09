@@ -1,1 +1,1 @@
-Bulbasaur "Bulbasaur Desc" 8 "plant Pokemon" 7.6 8.6 $$1 38% $15 36%% $% $% 38 $5 6% $15 16 8 48 6 9% 9 80 0.16 $% $37%
+Bulbasaur "A Bulbasaur es fácil verle echándose una siesta al sol. La semilla que tiene en el lomo va creciendo cada vez más a medida que absorbe los rayos del sol." "Pokemon Semilla" 0.71 6.9 $$0 38% $15 36%% $% $% 38 $5 6% $15 16 8 48 6 9% 9 80 0.16 $% $37%
