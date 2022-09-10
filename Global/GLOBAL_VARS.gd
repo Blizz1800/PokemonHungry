@@ -16,7 +16,6 @@ func _ready():
 	ALFA_CHARS.append(char(47))
 	for c in range(58, 126):
 		ALFA_CHARS.append(char(c))
-	
 
 func returnNum(txt:String):
 	for c in ALFA_CHARS:
@@ -25,4 +24,3 @@ func returnNum(txt:String):
 	if DOT in txt:
 		return float(txt)
 	return int(txt)
-

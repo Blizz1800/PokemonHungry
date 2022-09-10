@@ -21,17 +21,45 @@ _global_script_class_icons={
 [application]
 
 config/name="Pokemon Hungry"
-config/icon="res://IMGs/logoV2.png"
+config/icon="res://IMGs/logoV3.png"
 
 [autoload]
 
 DB="*res://Global/db.gd"
 PokemonSheet="*res://Global/pokemon_sheet.gd"
-GlobalVars="*res://GLOBAL_VARS.gd"
+GlobalVars="*res://Global/GLOBAL_VARS.gd"
+
+[global]
+
+tile=false
+tilese=false
 
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[input]
+
+Player_Move_R={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+Player_Move_L={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+Player_Move_U={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+Player_Move_D={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [physics]
 
