@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Pokemon Hungry"
-config/icon="res://IMGs/logoV3.png"
+config/icon="res://IMGs/logoV2.png"
 
 [autoload]
 
