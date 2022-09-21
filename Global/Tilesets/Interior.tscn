@@ -78,3 +78,58 @@ region_rect = Rect2( 224, 880, 32, 32 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 208, 688, 16, 16 )
+
+[node name="Puerta-UP-Fix" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 144, 544, 16, 16 )
+
+[node name="Table" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 128, 560, 96, 48 )
+
+[node name="Carpet up" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 224, 592, 16, 16 )
+
+[node name="carpet-bl" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 208, 608, 16, 16 )
+
+[node name="carpet-br" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 224, 608, 16, 16 )
+
+[node name="carpet-c" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 144, 832, 16, 16 )
+
+[node name="carpet-r" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 160, 832, 16, 16 )
+
+[node name="carpet-l" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 128, 832, 16, 16 )
+
+[node name="exit-carpet" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 160, 512, 32, 16 )
+
+[node name="Kitchen" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 272, 592, 80, 32 )
+
+[node name="Wall-Border" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 240, 544, 16, 16 )

@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Global/Tilesets/interior.tres" type="TileSet" id=1]
 [ext_resource path="res://IMGs/Tilesets/Game Boy Advance - Pokemon Emerald - Interior Tilesets.png" type="Texture" id=2]
-[ext_resource path="res://Scenarios/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Tools/Teleporter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Tools/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/start_map.gd" type="Script" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Sprite"
@@ -91,6 +93,7 @@
 5/z_index = 0
 
 [node name="Main" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="floor" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
@@ -105,5 +108,15 @@ show_collision = true
 format = 1
 tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, 65535, 0, 0, 0, 3, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 4, 11, 0, 5, 8, 0, 8, 10, 0, 9, 0, 0, 131071, 0, 0, 65537, 6, 0, 65545, 0, 0, 196607, 0, 0, 131081, 0, 0, 262143, 0, 0, 196617, 0, 0, 327679, 0, 0, 262149, 7, 0, 262153, 0, 0, 393215, 0, 0, 327681, 12, 0, 327689, 0, 0, 458751, 0, 0, 393225, 0, 0, 524287, 0, 0, 458761, 0, 0, 589823, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 62, 96 )
+[node name="Teleporter" parent="." instance=ExtResource( 3 )]
+position = Vector2( 104, 22 )
+Scene = "home-f0"
+Position = 1
+
+[node name="1" type="Position2D" parent="."]
+position = Vector2( 76, 93 )
+
+[node name="2" type="Position2D" parent="."]
+position = Vector2( 104, 41 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]

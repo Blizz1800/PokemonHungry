@@ -6,7 +6,11 @@ const SPACE_CHARS = [' ', '\v', '\t', '\r', '\v', '\f']
 var INT_CHARS = []
 var ALFA_CHARS = []
 
+var mapPlayerStartPos:int = -1
+
 const DOT = char(46)
+
+var sceneNPCs = []
 
 func _ready():
 	for c in range(48,57):
@@ -24,3 +28,8 @@ func returnNum(txt:String):
 	if DOT in txt:
 		return float(txt)
 	return int(txt)
+
+func waitForInput(InputString):
+	while(!Input.is_action_just_pressed(InputString)):
+		pass
+	return true
